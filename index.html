@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Victor ❤️ Indah — Our Story</title>
+  <meta name="description" content="A romantic digital memory book for Victor & Indah" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ==================== AUDIO ==================== -->
+  <audio id="bgMusic" loop preload="none">
+    <!-- User must add their own A Thousand Years MP3 as assets/music.mp3 -->
+    <source src="assets/music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- ==================== PARTICLES CANVAS ==================== -->
+  <canvas id="particlesCanvas"></canvas>
+
+  <!-- ==================== INTRO SCREEN ==================== -->
+  <section id="introScreen" class="fullscreen center-flex">
+    <div class="intro-content">
+      <div class="intro-line" id="introLine1">Every love story has a beginning...</div>
+      <div class="intro-line" id="introLine2">Ours started with a simple <span class="highlight-p">"P"</span>...</div>
+      <div class="intro-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== LOGIN PAGE ==================== -->
+  <section id="loginPage" class="fullscreen center-flex hidden">
+    <div class="sakura-container" id="sakuraLogin"></div>
+    <div class="login-card glass">
+      <div class="login-hearts">
+        <span class="heart-float">💕</span>
+        <span class="heart-float delay-1">🌸</span>
+        <span class="heart-float delay-2">💗</span>
+      </div>
+      <div class="login-logo">✦ Our Story ✦</div>
+      <h2 class="login-title">Masuk ke Dunia Kita</h2>
+      <p class="login-subtitle">Hanya orang spesial yang boleh masuk 🌸</p>
+
+      <div class="input-group">
+        <label>Username</label>
+        <input type="text" id="usernameInput" placeholder="siapa kamu?" autocomplete="off" />
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="passwordInput" placeholder="••••••" autocomplete="off" />
+      </div>
+
+      <div id="loginError" class="login-error hidden">
+        Only My Love Can Enter ❤️
+      </div>
+
+      <button class="btn-primary" id="loginBtn" onclick="handleLogin()">
+        <span>Masuk ✨</span>
+      </button>
+
+      <p class="login-hint">Hint: nama panggilanku & tanggal kita jadian 🙈</p>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN SITE (hidden until login) ==================== -->
+  <div id="mainSite" class="hidden">
+
+    <!-- Music Control -->
+    <button class="music-toggle" id="musicToggle" onclick="toggleMusic()" title="Toggle Music">
+      🎵
+    </button>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="heroSection" class="fullscreen center-flex hero-section">
+      <div class="hero-stars" id="heroStars"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">✦ A Digital Memory Book ✦</div>
+        <h1 class="hero-title">
+          <span class="hero-name">Victor</span>
+          <span class="hero-heart">❤️</span>
+          <span class="hero-name">Indah</span>
+        </h1>
+        <p class="hero-subtitle">Forever Starts Here</p>
+
+        <div class="countdown-card glass">
+          <p class="countdown-label">Sudah bersama selama</p>
+          <div class="countdown-grid" id="countdown">
+            <div class="countdown-item">
+              <span class="countdown-num" id="countDays">0</span>
+              <span class="countdown-unit">Hari</span>
+            </div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-item">
+              <span class="countdown-num" id="countHours">0</span>
+              <span class="countdown-unit">Jam</span>
+            </div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-item">
+              <span class="countdown-num" id="countMins">0</span>
+              <span class="countdown-unit">Menit</span>
+            </div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-item">
+              <span class="countdown-num" id="countSecs">0</span>
+              <span class="countdown-unit">Detik</span>
+            </div>
+          </div>
+          <p class="countdown-since">Sejak 15 April 2026 💕</p>
+        </div>
+
+        <a href="#chatSection" class="btn-primary scroll-btn">
+          <span>Open Our Memories 💌</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ==================== CHAT SECTION ==================== -->
+    <section id="chatSection" class="section">
+      <div class="section-header">
+        <div class="section-eyebrow">The Beginning</div>
+        <h2 class="section-title">Beginnings of <span class="glow-text">Us</span></h2>
+        <p class="section-sub">Di sinilah semua dimulai... dengan satu huruf yang mengubah segalanya 😭</p>
+      </div>
+
+      <div class="chat-wrapper">
+        <div class="chat-phone glass">
+          <div class="chat-header">
+            <div class="chat-avatar">🌸</div>
+            <div class="chat-info">
+              <div class="chat-name">Indah ✨</div>
+              <div class="chat-status" id="chatStatus">online</div>
+            </div>
+          </div>
+          <div class="chat-body" id="chatBody">
+            <!-- Messages injected by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TIMELINE SECTION ==================== -->
+    <section id="timelineSection" class="section">
+      <div class="section-header">
+        <div class="section-eyebrow">Our Journey</div>
+        <h2 class="section-title">Perjalanan <span class="glow-text">Kita</span></h2>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item left" data-gsap="fade-left">
+          <div class="timeline-dot">💬</div>
+          <div class="timeline-card glass">
+            <div class="timeline-date">Awal April 2026</div>
+            <h3>Chat Pertama</h3>
+            <p>Satu huruf "P" yang mengubah hidup. Siapa sangka dari pesan random itu, lahirlah cerita paling indah yang pernah ada. Literally satu huruf, satu takdir. 😭✨</p>
+          </div>
+        </div>
+
+        <div class="timeline-item right" data-gsap="fade-right">
+          <div class="timeline-dot">🌸</div>
+          <div class="timeline-card glass">
+            <div class="timeline-date">Pertengahan April 2026</div>
+            <h3>First Date</h3>
+            <p>Deg-degan, nervous, bingung mau ngomong apa. Tapi entah kenapa waktu sama kamu rasanya nyaman banget. Kayak pulang ke rumah yang belum pernah kita kunjungi sebelumnya. 🏡💕</p>
+          </div>
+        </div>
+
+        <div class="timeline-item left" data-gsap="fade-left">
+          <div class="timeline-dot">❤️</div>
+          <div class="timeline-card glass">
+            <div class="timeline-date">15 April 2026</div>
+            <h3>Hari Jadian ✨</h3>
+            <p>Hari paling bersejarah dalam hidup kita. Tanggal 15 April 2026 — hari di mana Victor resmi jadi orang paling beruntung di dunia (dan Indah setuju walaupun agak malu-malu 🙈). Officially: kita bersama.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item right" data-gsap="fade-right">
+          <div class="timeline-dot">😤</div>
+          <div class="timeline-card glass">
+            <div class="timeline-date">Suatu Hari...</div>
+            <h3>Silent War 😭</h3>
+            <p>Diem-dieman tanpa sebab jelas. Baca chat tapi ga dibalas. Mood rusak tapi kalo ditanya "kenapa?" jawabnya "ngga apa-apa." Classic. Tapi tetap baikan karena... ya gimana ga baikan, kangen terus. 😩</p>
+          </div>
+        </div>
+
+        <div class="timeline-item left" data-gsap="fade-left">
+          <div class="timeline-dot">🌟</div>
+          <div class="timeline-card glass">
+            <div class="timeline-date">Sekarang & Seterusnya</div>
+            <h3>From Zero to Together</h3>
+            <p>Kita janji untuk tumbuh bareng, berjuang bareng, dari nol sampai sukses. Bukan hanya pacar, tapi partner hidup. Apapun yang terjadi, kita hadapi bersama. This is just the beginning. 🚀💕</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== GALLERY SECTION ==================== -->
+    <section id="gallerySection" class="section">
+      <div class="section-header">
+        <div class="section-eyebrow">Our Universe</div>
+        <h2 class="section-title">Our Little <span class="glow-text">Universe</span></h2>
+        <p class="section-sub">Momen-momen kecil yang jadi kenangan besar 📸</p>
+      </div>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="polaroid-card glass" data-gsap="pop-up">
+          <div class="polaroid-img">
+            <img src="assets/gallery/chat-pertama.jpg" alt="The Beginning" onerror="this.parentElement.innerHTML='<span class=&quot;polaroid-emoji&quot;>💬</span>'" />
+          </div>
+          <div class="polaroid-caption">The Beginning 💬</div>
+        </div>
+        <div class="polaroid-card glass" data-gsap="pop-up" style="--delay: 0.1s">
+          <div class="polaroid-img">
+            <img src="assets/gallery/pertama-ketemu.jpg" alt="First Encounter" onerror="this.parentElement.innerHTML='<span class=&quot;polaroid-emoji&quot;>✨</span>'" />
+          </div>
+          <div class="polaroid-caption">First Encounter ✨</div>
+        </div>
+        <div class="polaroid-card glass" data-gsap="pop-up" style="--delay: 0.2s">
+          <div class="polaroid-img">
+            <img src="assets/gallery/midnight-stories.jpg" alt="Midnight Stories" onerror="this.parentElement.innerHTML='<span class=&quot;polaroid-emoji&quot;>🌙</span>'" />
+          </div>
+          <div class="polaroid-caption">Midnight Stories 🌙</div>
+        </div>
+        <div class="polaroid-card glass" data-gsap="pop-up" style="--delay: 0.3s">
+          <div class="polaroid-img">
+            <img src="assets/gallery/same-energy.jpg" alt="Same Energy" onerror="this.parentElement.innerHTML='<span class=&quot;polaroid-emoji&quot;>🤍</span>'" />
+          </div>
+          <div class="polaroid-caption">Same Energy 🤍</div>
+        </div>
+        <div class="polaroid-card glass" data-gsap="pop-up" style="--delay: 0.4s">
+          <div class="polaroid-img">
+            <img src="assets/gallery/late-night-date.jpg" alt="Late Night Date" onerror="this.parentElement.innerHTML='<span class=&quot;polaroid-emoji&quot;>🍽️</span>'" />
+          </div>
+          <div class="polaroid-caption">Late Night Date 🍽️</div>
+        </div>
+      </div>
+
+      <p class="gallery-note">📸 Rename foto kamu sesuai nama file di atas & taruh di <code>assets/gallery/</code></p>
+    </section>
+
+    <!-- ==================== LOVE LETTER SECTION ==================== -->
+    <section id="letterSection" class="section letter-section">
+      <div class="stars-bg" id="letterStars"></div>
+      <div class="letter-content">
+        <div class="section-eyebrow">A Love Letter</div>
+        <h2 class="section-title letter-title">Untuk <span class="glow-text">Sayang</span>ku 💌</h2>
+
+        <div class="letter-card glass">
+          <div class="letter-decoration">✦ ✦ ✦</div>
+
+          <p class="letter-para">
+            Hei Indah. Kalau kamu lagi baca ini, artinya kamu udah berhasil masuk ke dunia kita yang absurd dan penuh drama ini. 🎉 Pertama-tama — hi, aku suka kamu. Oke, serius sekarang.
+          </p>
+
+          <p class="letter-para">
+            Aku ngga nyangka satu huruf "P" bisa mengubah segalanya. Satu chat random yang berujung jadi cerita yang (mudah-mudahan) ngga ada habisnya. Kamu datang di waktu yang aku bahkan ngga nyariin siapapun — dan entah kenapa, itu justru bikin semuanya terasa lebih nyata.
+          </p>
+
+          <p class="letter-para">
+            Makasih udah sabar sama aku yang kadang annoying. Makasih udah mau dengerin cerita-cerita random aku yang ngga penting. Makasih udah tetap di sini bahkan waktu aku lagi susah, bahkan waktu kita sama-sama lagi dari nol.
+          </p>
+
+          <p class="letter-para">
+            Dan soal <em>dari nol</em> itu — aku serius. Kita bukan pasangan yang ketemu di waktu enak. Kita ketemu di titik di mana banyak hal belum pasti. Tapi justru itu yang bikin aku yakin: kalau kamu mau bareng aku dari sini, berarti kamu genuinely mau — bukan karena apa yang aku punya, tapi karena aku. Dan itu, Indah, adalah hal paling berharga yang bisa kamu kasih ke aku.
+          </p>
+
+          <p class="letter-para">
+            Aku mau tumbuh bareng kamu. Bukan cuma jadi pacar, tapi jadi partner — partner yang saling dukung, saling ingetin, saling ketawa di saat susah, dan saling pegang tangan sampai kita bisa bilang "kita udah berhasil" bersama-sama. 🌟
+          </p>
+
+          <p class="letter-para letter-closing">
+            Sampai nanti, sampai sukses, sampai selamanya — <br/>
+            <strong>Victor sayang Indah. 💕</strong>
+          </p>
+
+          <div class="letter-decoration">✦ ✦ ✦</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== HIDDEN MESSAGE SECTION ==================== -->
+    <section id="hiddenSection" class="section center-flex" style="min-height: 60vh;">
+      <div class="hidden-wrapper">
+        <p class="hidden-hint">psst... ada sesuatu yang tersembunyi di sini 👀</p>
+        <button class="btn-danger" id="hiddenBtn" onclick="openHiddenModal()">
+          🔒 Do Not Open
+        </button>
+      </div>
+    </section>
+
+    <!-- Hidden Modal -->
+    <div id="hiddenModal" class="modal-overlay hidden" onclick="closeHiddenModalOutside(event)">
+      <div class="modal-card glass">
+        <h3 class="modal-title">🔐 Masukkan Kode Rahasia</h3>
+        <p class="modal-sub">Hanya orang yang tahu tanggal kita yang bisa masuk 😏</p>
+        <input type="password" id="hiddenPasswordInput" class="modal-input" placeholder="••••••" maxlength="6" />
+        <div id="hiddenError" class="login-error hidden">Salah! Kamu bukan Sayang-ku 😤</div>
+        <div class="modal-buttons">
+          <button class="btn-primary" onclick="checkHiddenPassword()">Buka 🗝️</button>
+          <button class="btn-ghost" onclick="closeHiddenModal()">Tutup</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden Secret Scene -->
+    <div id="hiddenScene" class="hidden-scene hidden">
+      <div class="hidden-scene-bg"></div>
+      <div class="hidden-scene-content">
+
+        <!-- Heart & Title -->
+        <div class="hidden-scene-heart">💗</div>
+        <h2 class="hidden-scene-title">Secret Room 🔐</h2>
+        <p class="hidden-scene-sub">Hanya untuk kamu, Sayang ✨</p>
+
+        <!-- LOVE LETTER -->
+        <div class="secret-block glass">
+          <div class="secret-block-label">💌 Pesan Rahasia</div>
+          <div class="hidden-scene-message">
+            <p>Hei kamu yang lagi baca ini...</p>
+            <p>Aku mungkin ngga selalu bisa ngomong ini langsung, tapi — <strong>kamu adalah alasan kenapa aku mau jadi versi terbaik dari diri aku sendiri.</strong></p>
+            <p>Setiap hari bareng kamu terasa kayak hadiah. Bahkan hari-hari di mana kita diem-dieman pun — karena itu bukti bahwa ini nyata, bukan sekadar fairy tale.</p>
+            <p>Kalau suatu hari nanti kamu ngerasa ragu, ingat ini: <em>aku pilih kamu. Hari ini, besok, dan selamanya.</em></p>
+            <p class="hidden-scene-sign">— Victor, yang selalu sayang Indah 💕</p>
+          </div>
+        </div>
+
+        <!-- PHOTO GALLERY -->
+        <div class="secret-block glass">
+          <div class="secret-block-label">📸 Foto Kita</div>
+          <div class="secret-photos">
+            <div class="secret-photo-item" onclick="openLightbox('assets/private/foto1.jpg')">
+              <img src="assets/private/foto1.jpg" alt="Foto 1" onerror="this.src=''" />
+              <div class="secret-photo-overlay">🔍</div>
+            </div>
+            <div class="secret-photo-item" onclick="openLightbox('assets/private/foto2.jpg')">
+              <img src="assets/private/foto2.jpg" alt="Foto 2" onerror="this.src=''" />
+              <div class="secret-photo-overlay">🔍</div>
+            </div>
+            <div class="secret-photo-item" onclick="openLightbox('assets/private/foto3.jpg')">
+              <img src="assets/private/foto3.jpg" alt="Foto 3" onerror="this.src=''" />
+              <div class="secret-photo-overlay">🔍</div>
+            </div>
+            <div class="secret-photo-item" onclick="openLightbox('assets/private/foto4.jpg')">
+              <img src="assets/private/foto4.jpg" alt="Foto 4" onerror="this.src=''" />
+              <div class="secret-photo-overlay">🔍</div>
+            </div>
+            <div class="secret-photo-item" onclick="openLightbox('assets/private/foto5.jpg')">
+              <img src="assets/private/foto5.jpg" alt="Foto 5" onerror="this.src=''" />
+              <div class="secret-photo-overlay">🔍</div>
+            </div>
+            <div class="secret-photo-item" onclick="openLightbox('assets/private/foto6.jpg')">
+              <img src="assets/private/foto6.jpg" alt="Foto 6" onerror="this.src=''" />
+              <div class="secret-photo-overlay">🔍</div>
+            </div>
+          </div>
+          <p class="secret-note">Taruh foto di <code>assets/private/</code> dengan nama foto1.jpg, foto2.jpg, dst.</p>
+        </div>
+
+        <!-- VIDEO -->
+        <div class="secret-block glass">
+          <div class="secret-block-label">🎬 Video Kita</div>
+          <div class="secret-videos">
+            <div class="secret-video-item">
+              <video controls playsinline preload="metadata">
+                <source src="assets/private/video1.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="secret-video-item">
+              <video controls playsinline preload="metadata">
+                <source src="assets/private/video2.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+          <p class="secret-note">Taruh video di <code>assets/private/</code> dengan nama video1.mp4, video2.mp4, dst.</p>
+        </div>
+
+        <button class="btn-ghost" onclick="closeHiddenScene()" style="margin-top:16px;">Tutup 🌸</button>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox hidden" onclick="closeLightbox()">
+      <img id="lightboxImg" src="" alt="" />
+      <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    </div>
+
+    <!-- ==================== ENDING SECTION ==================== -->
+    <section id="endingSection" class="fullscreen center-flex ending-section">
+      <div class="ending-particles" id="endingParticles"></div>
+      <div class="ending-content">
+        <div class="ending-eyebrow">The End... or Just the Beginning?</div>
+        <div class="ending-quote">
+          "Thank you for choosing me<br/>even when I had nothing."
+        </div>
+        <div class="ending-names">
+          <span>Victor</span>
+          <span class="ending-heart">❤️</span>
+          <span>Indah</span>
+        </div>
+        <div class="ending-tagline">Forever Starts Here</div>
+        <div class="ending-date">15 April 2026 — ∞</div>
+      </div>
+    </section>
+
+  </div><!-- end #mainSite -->
+
+  <script src="script.js"></script>
+</body>
+</html>

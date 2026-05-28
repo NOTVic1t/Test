@@ -1002,11 +1002,10 @@ body {
   top: 0; left: 0;
   width: 100%; height: 100%;
   z-index: 9500;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  display: block !important;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 40px 20px 60px;
 }
 
 .hidden-scene.hidden { display: none !important; }
@@ -1025,6 +1024,7 @@ body {
   text-align: center;
   max-width: 540px;
   width: 100%;
+  margin: 0 auto;
 }
 
 .hidden-scene-heart {
